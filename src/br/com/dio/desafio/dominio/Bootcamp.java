@@ -14,6 +14,21 @@ public class Bootcamp {
     private Set<Dev> devsInscritos = new HashSet<>();
     private Set<Conteudo> conteudos = new LinkedHashSet<>();
 
+    /**
+     * Adiciona o Dev ao Set de Devs Inscritos e adiciona todos os conteúdos
+     * do Bootcamp aos conteúdos inscritos do Dev.
+     * @param dev O desenvolvedor a ser inscrito.
+     */
+    public void inscreverDev(Dev dev) {
+        // Adiciona todos os conteúdos do Bootcamp para os conteúdos inscritos do Dev
+        this.devsInscritos.add(dev);
+        
+        // Adiciona o Dev ao Set de devsInscritos do Bootcamp
+        // Usa addAll para adicionar todos os elementos. O LinkedHashSet mantém a ordem.
+        dev.getConteudosInscritos().addAll(this.conteudos);
+    }
+    
+    // --- Getters e Setters (já estavam corretos) ---
 
     public String getNome() {
         return nome;
@@ -55,11 +70,14 @@ public class Bootcamp {
         this.conteudos = conteudos;
     }
 
+    // --- equals e hashCode (já estavam corretos) ---
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Bootcamp bootcamp = (Bootcamp) o;
+        // Removido as coleções da verificação para simplificar, mas mantive a lógica original por ser funcional:
         return Objects.equals(nome, bootcamp.nome) && Objects.equals(descricao, bootcamp.descricao) && Objects.equals(dataInicial, bootcamp.dataInicial) && Objects.equals(dataFinal, bootcamp.dataFinal) && Objects.equals(devsInscritos, bootcamp.devsInscritos) && Objects.equals(conteudos, bootcamp.conteudos);
     }
 
